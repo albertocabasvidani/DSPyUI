@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSPy Prompt Optimizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 DSPy Prompt Optimizer</h1>
+            <p class="subtitle">Ottimizza i tuoi prompt usando l'intelligenza artificiale</p>
+        </header>
+
+        <main>
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="form-group">
+                    <label for="original-prompt">Prompt Originale</label>
+                    <textarea
+                        id="original-prompt"
+                        placeholder="Inserisci qui il tuo prompt da ottimizzare..."
+                        rows="6"
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="purpose">Scopo del Prompt</label>
+                    <textarea
+                        id="purpose"
+                        placeholder="Descrivi cosa dovrebbe fare questo prompt (es. 'Generare riassunti di articoli scientifici', 'Creare descrizioni prodotto per e-commerce', etc.)"
+                        rows="3"
+                    ></textarea>
+                </div>
+
+                <div class="form-group examples-section" id="examples-section">
+                    <label>Esempi (Opzionale)</label>
+                    <button type="button" class="btn-secondary" id="add-example-btn">
+                        + Aggiungi Esempio
+                    </button>
+                    <div id="examples-container"></div>
+                </div>
+
+                <button id="optimize-btn" class="btn-primary">
+                    <span class="btn-text">Ottimizza Prompt</span>
+                    <span class="spinner"></span>
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results-section" class="results-section hidden">
+                <h2>📊 Risultati Ottimizzazione</h2>
+
+                <div class="result-card">
+                    <h3>Prompt Ottimizzato</h3>
+                    <div class="prompt-result" id="optimized-prompt"></div>
+                    <button class="copy-btn" data-target="optimized-prompt">📋 Copia</button>
+                </div>
+
+                <div class="improvements-card">
+                    <h3>✨ Miglioramenti Applicati</h3>
+                    <ul id="improvements-list"></ul>
+                </div>
+
+                <div class="explanation-card">
+                    <h3>💡 Spiegazione</h3>
+                    <p id="explanation-text"></p>
+                </div>
+
+                <div class="metrics-card">
+                    <h3>📈 Metriche di Qualità</h3>
+                    <div class="metrics-grid" id="metrics-grid"></div>
+                </div>
+
+                <div class="comparison-card">
+                    <h3>🔄 Confronto</h3>
+                    <div class="comparison-container">
+                        <div class="comparison-column">
+                            <h4>Originale</h4>
+                            <div class="prompt-text" id="original-comparison"></div>
+                        </div>
+                        <div class="comparison-column">
+                            <h4>Ottimizzato</h4>
+                            <div class="prompt-text" id="optimized-comparison"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <div id="error-message" class="error-message hidden"></div>
+        </main>
+
+        <footer>
+            <p>Powered by <a href="https://github.com/stanfordnlp/dspy" target="_blank">DSPy</a> & OpenAI</p>
+            <p>
+                <a href="https://github.com/yourusername/DSPyUI" target="_blank">GitHub</a> |
+                <a href="#" id="clear-history">Pulisci Storia</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toast-message"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
