@@ -177,6 +177,21 @@ The `PromptOptimizer` class uses DSPy's advanced optimization features:
 
 - **Error Handling**: Multi-layer fallback (few-shot → base → template) ensures robustness
 
+## Performance Characteristics
+
+**Expected Response Times** (measured in production):
+
+- **Health Check**: ~0.3s
+- **Optimize without examples** (warm): ~30-35s
+  - Optimization: ~0.5s
+  - LM-based quality metrics: ~30s (essential for accurate assessment)
+- **Optimize with examples** (few-shot): ~27-35s
+  - BootstrapFewShot compilation and execution
+- **Cold start** (after 15min sleep): ~2-3 minutes first request
+- **Analyze**: ~6-7s
+
+**Note on Quality Metrics**: The `analyze_prompt_quality()` method uses LM-based analysis via ChainOfThought to provide accurate quality scores (clarity, specificity, structure, completeness). This adds ~30s but is essential for meaningful assessment. Heuristic fallback exists but produces less reliable metrics.
+
 ## Frontend-Backend Communication
 
 ```javascript
