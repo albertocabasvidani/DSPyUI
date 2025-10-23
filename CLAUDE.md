@@ -21,12 +21,37 @@ The architecture is **serverless-friendly** with complete separation between fro
 - **DSPy Version**: 2.5+ (using new `dspy.LM()` API)
 - **Python Version**: 3.11.9 (specified in `runtime.txt`)
 
+### Render Configuration
+
+- **Service ID**: `srv-d3sufkk9c44c73cdokb0`
+- **Service Name**: DSPyUI
+- **Auto-deploy**: Enabled (triggers on commit to main branch)
+- **API Key**: Stored in `tmp.txt` (not committed to repo)
+
+### Render API Operations
+
+```bash
+# Check service status
+curl -s https://api.render.com/v1/services/srv-d3sufkk9c44c73cdokb0 \
+  -H "Authorization: Bearer $RENDER_API_KEY" | jq '.service'
+
+# List recent deploys
+curl -s https://api.render.com/v1/services/srv-d3sufkk9c44c73cdokb0/deploys \
+  -H "Authorization: Bearer $RENDER_API_KEY" | jq '.[] | .deploy | {status, commit: .commit.id[0:7], createdAt}'
+
+# Trigger manual deploy
+curl -X POST https://api.render.com/v1/services/srv-d3sufkk9c44c73cdokb0/deploys \
+  -H "Authorization: Bearer $RENDER_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
 ### Known Requirements
 
 - `runtime.txt` must be in **repository root**, not in `/backend`
 - DSPy 2.5+ requires `dspy.LM('openai/model-name')` instead of deprecated `dspy.OpenAI()`
 - Do not include `cors` package in requirements.txt (FastAPI includes CORS middleware natively)
 - Render free tier: backend sleeps after 15min inactivity, first wake-up takes ~30s
+- Auto-deploy is enabled: backend deploys automatically on push to main branch
 
 ## Development Commands
 
