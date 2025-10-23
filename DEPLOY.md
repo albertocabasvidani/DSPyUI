@@ -16,18 +16,14 @@
 Copia e incolla questi comandi nel terminale:
 
 ```bash
-# Aggiungi il remote GitHub (sostituisci 'tuousername' con il tuo username GitHub)
-git remote add origin https://github.com/tuousername/DSPyUI.git
+# Il repository è già stato creato e configurato!
+# Repository: https://github.com/albertocabasvidani/DSPyUI
 
-# Push del codice
-git push -u origin main
+# Per futuri push, usa:
+git push origin main
 ```
 
-Se usi autenticazione SSH:
-```bash
-git remote add origin git@github.com:tuousername/DSPyUI.git
-git push -u origin main
-```
+Repository già configurato con HTTPS.
 
 ## Passaggio 3: Configura GitHub Pages
 
@@ -39,7 +35,7 @@ git push -u origin main
    - Folder: `/docs`
 4. Clicca **Save**
 5. Attendi 2-3 minuti per il deploy
-6. Il tuo sito sarà disponibile su: `https://tuousername.github.io/DSPyUI`
+6. Il tuo sito sarà disponibile su: `https://albertocabasvidani.github.io/DSPyUI`
 
 ## Passaggio 4: Deploy Backend su Render
 
@@ -64,7 +60,7 @@ git push -u origin main
 6. Seleziona **Free** plan
 7. Clicca **Advanced** e aggiungi Environment Variables:
    - `OPENAI_API_KEY`: [La tua API key OpenAI]
-   - `FRONTEND_URL`: `https://tuousername.github.io/DSPyUI`
+   - `FRONTEND_URL`: `https://albertocabasvidani.github.io/DSPyUI`
 8. Clicca **Create Web Service**
 
 ### Post-Deploy
@@ -82,7 +78,7 @@ git push -u origin main
 1. **Backend**: Visita `https://tuo-backend.onrender.com/health`
    - Dovresti vedere: `{"status":"healthy",...}`
 
-2. **Frontend**: Visita `https://tuousername.github.io/DSPyUI`
+2. **Frontend**: Visita `https://albertocabasvidani.github.io/DSPyUI`
    - L'interfaccia dovrebbe caricarsi correttamente
 
 3. **Test completo**:

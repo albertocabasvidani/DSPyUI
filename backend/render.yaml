@@ -14,6 +14,6 @@ services:
       - key: DSPY_TEMPERATURE
         value: 0.7
       - key: FRONTEND_URL
-        value: https://yourusername.github.io/DSPyUI
+        value: https://albertocabasvidani.github.io/DSPyUI
     autoDeploy: true
     plan: free

@@ -4,8 +4,8 @@ Un'interfaccia web per ottimizzare i prompt usando la libreria DSPy e OpenAI. So
 
 ## 🚀 Demo Live
 
-- **Frontend**: `https://[tuousername].github.io/DSPyUI`
-- **Backend**: `https://dspyui-backend.onrender.com`
+- **Frontend**: `https://albertocabasvidani.github.io/DSPyUI`
+- **Backend**: `https://dspyui-backend.onrender.com` (da configurare)
 
 ## ✨ Funzionalità
 
@@ -33,9 +33,8 @@ Un'interfaccia web per ottimizzare i prompt usando la libreria DSPy e OpenAI. So
 ### 1. Fork e Clone
 
 ```bash
-# Fork questo repository dal tuo account GitHub
-# Poi clona il tuo fork
-git clone https://github.com/[tuousername]/DSPyUI.git
+# Clona il repository
+git clone https://github.com/albertocabasvidani/DSPyUI.git
 cd DSPyUI
 ```
 
@@ -81,7 +80,7 @@ python -m http.server 8080
    - **Start Command**: `uvicorn app:app --host 0.0.0.0 --port $PORT`
 4. Aggiungi variabile ambiente:
    - `OPENAI_API_KEY`: La tua API key OpenAI
-   - `FRONTEND_URL`: `https://[tuousername].github.io/DSPyUI`
+   - `FRONTEND_URL`: `https://albertocabasvidani.github.io/DSPyUI`
 
 ### Frontend su GitHub Pages
 
@@ -152,7 +151,7 @@ Distribuito sotto licenza MIT. Vedi `LICENSE` per maggiori informazioni.
 
 ## 📧 Contatti
 
-- GitHub: [@tuousername](https://github.com/tuousername)
+- GitHub: [@albertocabasvidani](https://github.com/albertocabasvidani)
 
 ## 🐛 Troubleshooting
 
