@@ -3,7 +3,7 @@ const CONFIG = {
     // Backend URL - Update this with your Render deployment URL
     API_URL: window.location.hostname === 'localhost'
         ? 'http://localhost:8000'
-        : 'https://dspyui-backend.onrender.com',  // Aggiorna con il tuo URL Render dopo il deploy
+        : 'https://dspyui.onrender.com',  // Aggiorna con il tuo URL Render dopo il deploy
 
     // LocalStorage keys
     STORAGE_KEYS: {
