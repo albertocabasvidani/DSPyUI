@@ -11,6 +11,23 @@ DSPyUI is a web-based prompt optimizer using DSPy and OpenAI. It consists of two
 
 The architecture is **serverless-friendly** with complete separation between frontend and backend. They communicate only via REST API with CORS enabled.
 
+## Production Deployment Status
+
+**DEPLOYED AND OPERATIONAL** ✓
+
+- **Backend**: https://dspyui.onrender.com (Render.com)
+- **Frontend**: https://albertocabasvidani.github.io/DSPyUI (GitHub Pages)
+- **Status**: All systems operational, optimizer initialized successfully
+- **DSPy Version**: 2.5+ (using new `dspy.LM()` API)
+- **Python Version**: 3.11.9 (specified in `runtime.txt`)
+
+### Known Requirements
+
+- `runtime.txt` must be in **repository root**, not in `/backend`
+- DSPy 2.5+ requires `dspy.LM('openai/model-name')` instead of deprecated `dspy.OpenAI()`
+- Do not include `cors` package in requirements.txt (FastAPI includes CORS middleware natively)
+- Render free tier: backend sleeps after 15min inactivity, first wake-up takes ~30s
+
 ## Development Commands
 
 ### Backend Development
