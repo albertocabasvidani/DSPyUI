@@ -3,7 +3,7 @@ const CONFIG = {
     // Backend URL - Update this with your Render deployment URL
     API_URL: window.location.hostname === 'localhost'
         ? 'http://localhost:8000'
-        : 'https://dspyui.onrender.com',  // Aggiorna con il tuo URL Render dopo il deploy
+        : 'https://dspyui.onrender.com',  // Update with your Render URL after deployment
 
     // LocalStorage keys
     STORAGE_KEYS: {
@@ -66,10 +66,10 @@ async function checkBackendHealth() {
     try {
         const response = await fetch(`${CONFIG.API_URL}/health`);
         if (!response.ok) {
-            showToast('⚠️ Backend potrebbe essere in avvio. Prima richiesta potrebbe richiedere ~30s', 'warning', 5000);
+            showToast('⚠️ Backend may be starting up. First request may take ~30s', 'warning', 5000);
         }
     } catch (error) {
-        showToast('⚠️ Backend non raggiungibile. Controllare la connessione', 'error', 5000);
+        showToast('⚠️ Backend unreachable. Check connection', 'error', 5000);
     }
 }
 
@@ -81,7 +81,7 @@ async function optimizePrompt() {
     const purpose = elements.purpose.value.trim();
 
     if (!originalPrompt || !purpose) {
-        showError('Per favore inserisci sia il prompt che lo scopo');
+        showError('Please enter both prompt and purpose');
         return;
     }
 
@@ -117,9 +117,9 @@ async function optimizePrompt() {
     } catch (error) {
         console.error('Error:', error);
         if (error.message.includes('Failed to fetch')) {
-            showError('Impossibile connettersi al backend. Il servizio potrebbe essere in avvio (attendi ~30s e riprova)');
+            showError('Unable to connect to backend. Service may be starting up (wait ~30s and retry)');
         } else {
-            showError(`Errore durante l'ottimizzazione: ${error.message}`);
+            showError(`Error during optimization: ${error.message}`);
         }
     } finally {
         isLoading = false;
@@ -158,7 +158,7 @@ function displayResults(data) {
     // Scroll to results
     elements.resultsSection.scrollIntoView({ behavior: 'smooth' });
 
-    showToast('✅ Prompt ottimizzato con successo!', 'success');
+    showToast('✅ Prompt optimized successfully!', 'success');
 }
 
 // Display metrics
@@ -166,10 +166,10 @@ function displayMetrics(metrics) {
     elements.metricsGrid.innerHTML = '';
 
     const metricNames = {
-        clarity_score: 'Chiarezza',
-        specificity_score: 'Specificità',
-        structure_score: 'Struttura',
-        completeness_score: 'Completezza'
+        clarity_score: 'Clarity',
+        specificity_score: 'Specificity',
+        structure_score: 'Structure',
+        completeness_score: 'Completeness'
     };
 
     for (const [key, value] of Object.entries(metrics)) {
@@ -215,8 +215,8 @@ function addExample() {
     exampleDiv.className = 'example-item';
     exampleDiv.innerHTML = `
         <div class="example-inputs">
-            <input type="text" placeholder="Input esempio" class="example-input">
-            <input type="text" placeholder="Output atteso" class="example-output">
+            <input type="text" placeholder="Example input" class="example-input">
+            <input type="text" placeholder="Expected output" class="example-output">
             <button type="button" class="remove-example-btn">✕</button>
         </div>
     `;
@@ -261,10 +261,10 @@ async function copyToClipboard(button) {
 
     try {
         await navigator.clipboard.writeText(text);
-        showToast('📋 Copiato negli appunti!', 'success');
+        showToast('📋 Copied to clipboard!', 'success');
     } catch (err) {
         console.error('Failed to copy:', err);
-        showToast('Errore nella copia', 'error');
+        showToast('Copy error', 'error');
     }
 }
 
@@ -325,7 +325,7 @@ function getHistory() {
 
 function clearHistory(e) {
     e.preventDefault();
-    if (confirm('Vuoi davvero cancellare la cronologia?')) {
+    if (confirm('Do you really want to clear the history?')) {
         localStorage.removeItem(CONFIG.STORAGE_KEYS.HISTORY);
         localStorage.removeItem(CONFIG.STORAGE_KEYS.LAST_REQUEST);
         elements.originalPrompt.value = '';
@@ -333,7 +333,7 @@ function clearHistory(e) {
         elements.examplesContainer.innerHTML = '';
         examples = [];
         elements.resultsSection.classList.add('hidden');
-        showToast('🗑️ Cronologia cancellata', 'info');
+        showToast('🗑️ History cleared', 'info');
     }
 }
 

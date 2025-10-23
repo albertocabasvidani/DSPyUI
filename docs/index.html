@@ -11,78 +11,78 @@
     <div class="container">
         <header>
             <h1>🎯 DSPy Prompt Optimizer</h1>
-            <p class="subtitle">Ottimizza i tuoi prompt usando l'intelligenza artificiale</p>
+            <p class="subtitle">Optimize your prompts using artificial intelligence</p>
         </header>
 
         <main>
             <!-- Input Section -->
             <section class="input-section">
                 <div class="form-group">
-                    <label for="original-prompt">Prompt Originale</label>
+                    <label for="original-prompt">Original Prompt</label>
                     <textarea
                         id="original-prompt"
-                        placeholder="Inserisci qui il tuo prompt da ottimizzare..."
+                        placeholder="Enter your prompt to optimize here..."
                         rows="6"
                     ></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="purpose">Scopo del Prompt</label>
+                    <label for="purpose">Prompt Purpose</label>
                     <textarea
                         id="purpose"
-                        placeholder="Descrivi cosa dovrebbe fare questo prompt (es. 'Generare riassunti di articoli scientifici', 'Creare descrizioni prodotto per e-commerce', etc.)"
+                        placeholder="Describe what this prompt should do (e.g., 'Generate summaries of scientific articles', 'Create product descriptions for e-commerce', etc.)"
                         rows="3"
                     ></textarea>
                 </div>
 
                 <div class="form-group examples-section" id="examples-section">
-                    <label>Esempi (Opzionale)</label>
+                    <label>Examples (Optional)</label>
                     <button type="button" class="btn-secondary" id="add-example-btn">
-                        + Aggiungi Esempio
+                        + Add Example
                     </button>
                     <div id="examples-container"></div>
                 </div>
 
                 <button id="optimize-btn" class="btn-primary">
-                    <span class="btn-text">Ottimizza Prompt</span>
+                    <span class="btn-text">Optimize Prompt</span>
                     <span class="spinner"></span>
                 </button>
             </section>
 
             <!-- Results Section -->
             <section id="results-section" class="results-section hidden">
-                <h2>📊 Risultati Ottimizzazione</h2>
+                <h2>📊 Optimization Results</h2>
 
                 <div class="result-card">
-                    <h3>Prompt Ottimizzato</h3>
+                    <h3>Optimized Prompt</h3>
                     <div class="prompt-result" id="optimized-prompt"></div>
-                    <button class="copy-btn" data-target="optimized-prompt">📋 Copia</button>
+                    <button class="copy-btn" data-target="optimized-prompt">📋 Copy</button>
                 </div>
 
                 <div class="improvements-card">
-                    <h3>✨ Miglioramenti Applicati</h3>
+                    <h3>✨ Applied Improvements</h3>
                     <ul id="improvements-list"></ul>
                 </div>
 
                 <div class="explanation-card">
-                    <h3>💡 Spiegazione</h3>
+                    <h3>💡 Explanation</h3>
                     <p id="explanation-text"></p>
                 </div>
 
                 <div class="metrics-card">
-                    <h3>📈 Metriche di Qualità</h3>
+                    <h3>📈 Quality Metrics</h3>
                     <div class="metrics-grid" id="metrics-grid"></div>
                 </div>
 
                 <div class="comparison-card">
-                    <h3>🔄 Confronto</h3>
+                    <h3>🔄 Comparison</h3>
                     <div class="comparison-container">
                         <div class="comparison-column">
-                            <h4>Originale</h4>
+                            <h4>Original</h4>
                             <div class="prompt-text" id="original-comparison"></div>
                         </div>
                         <div class="comparison-column">
-                            <h4>Ottimizzato</h4>
+                            <h4>Optimized</h4>
                             <div class="prompt-text" id="optimized-comparison"></div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
             <p>Powered by <a href="https://github.com/stanfordnlp/dspy" target="_blank">DSPy</a> & OpenAI</p>
             <p>
                 <a href="https://github.com/albertocabasvidani/DSPyUI" target="_blank">GitHub</a> |
-                <a href="#" id="clear-history">Pulisci Storia</a>
+                <a href="#" id="clear-history">Clear History</a>
             </p>
         </footer>
     </div>

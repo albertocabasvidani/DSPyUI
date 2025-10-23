@@ -1,183 +1,183 @@
-# DSPyUI - Ottimizzatore di Prompt 🎯
+# DSPyUI - Prompt Optimizer 🎯
 
-Un'interfaccia web per ottimizzare i prompt usando la libreria DSPy e OpenAI. Soluzione completamente gratuita con hosting su GitHub Pages (frontend) e Render (backend).
+A web interface to optimize prompts using the DSPy library and OpenAI. Completely free solution with hosting on GitHub Pages (frontend) and Render (backend).
 
-## 🚀 Demo Live
+## 🚀 Live Demo
 
 - **Frontend**: `https://albertocabasvidani.github.io/DSPyUI`
-- **Backend**: `https://dspyui-backend.onrender.com` (da configurare)
+- **Backend**: `https://dspyui-backend.onrender.com` (to be configured)
 
-## ✨ Funzionalità
+## ✨ Features
 
-- **Ottimizzazione Automatica**: Usa DSPy con funzionalità avanzate per migliorare i tuoi prompt
-  - **Base Mode**: ChainOfThought con signature personalizzata
-  - **Few-Shot Mode**: BootstrapFewShot quando fornisci esempi (opzionale)
-- **Validazione Intelligente**: Assert e Suggest DSPy per garantire qualità output
-- **Metriche LM-Based**: Valutazione AI di chiarezza, specificità, struttura e completezza
-- **Spiegazioni Dettagliate**: Comprendi perché sono state apportate modifiche
-- **Confronto Visivo**: Visualizza side-by-side originale vs ottimizzato
-- **Storia Locale**: Salvataggio automatico in localStorage
-- **100% Gratuito**: Nessun costo di hosting
+- **Automatic Optimization**: Uses DSPy with advanced features to improve your prompts
+  - **Base Mode**: ChainOfThought with custom signature
+  - **Few-Shot Mode**: BootstrapFewShot when you provide examples (optional)
+- **Intelligent Validation**: DSPy Assert and Suggest to ensure output quality
+- **LM-Based Metrics**: AI evaluation of clarity, specificity, structure, and completeness
+- **Detailed Explanations**: Understand why changes were made
+- **Visual Comparison**: View original vs optimized side-by-side
+- **Local History**: Automatic saving in localStorage
+- **100% Free**: No hosting costs
 
-## 🛠️ Tecnologie
+## 🛠️ Technologies
 
-- **Frontend**: HTML5, CSS3, JavaScript vanilla (GitHub Pages)
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript (GitHub Pages)
 - **Backend**: Python, FastAPI, DSPy, OpenAI API (Render)
-- **Deployment**: GitHub Pages + Render (entrambi gratuiti)
+- **Deployment**: GitHub Pages + Render (both free)
 
-## 📋 Prerequisiti
+## 📋 Prerequisites
 
-- Account GitHub
-- Account Render (gratuito)
+- GitHub Account
+- Render Account (free)
 - OpenAI API Key
 
-## 🔧 Installazione
+## 🔧 Installation
 
-### 1. Fork e Clone
+### 1. Fork and Clone
 
 ```bash
-# Clona il repository
+# Clone the repository
 git clone https://github.com/albertocabasvidani/DSPyUI.git
 cd DSPyUI
 ```
 
-### 2. Configurazione Backend Locale (Opzionale)
+### 2. Local Backend Configuration (Optional)
 
 ```bash
-# Crea ambiente virtuale
+# Create virtual environment
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
-# oppure
+# or
 venv\Scripts\activate  # Windows
 
-# Installa dipendenze
+# Install dependencies
 cd backend
 pip install -r requirements.txt
 
-# Copia e configura .env
+# Copy and configure .env
 cp ../.env.example .env
-# Modifica .env con la tua OPENAI_API_KEY
+# Edit .env with your OPENAI_API_KEY
 
-# Avvia server locale
+# Start local server
 uvicorn app:app --reload
 ```
 
-### 3. Test Frontend Locale
+### 3. Test Frontend Locally
 
 ```bash
-# Dalla directory docs/
+# From docs/ directory
 python -m http.server 8080
-# Apri http://localhost:8080
+# Open http://localhost:8080
 ```
 
 ## 🌐 Deployment
 
-### Backend su Render
+### Backend on Render
 
-1. Crea account su [Render](https://render.com)
-2. Connetti il tuo repository GitHub
-3. Crea nuovo Web Service:
+1. Create account on [Render](https://render.com)
+2. Connect your GitHub repository
+3. Create new Web Service:
    - **Name**: `dspyui-backend`
    - **Root Directory**: `backend`
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `uvicorn app:app --host 0.0.0.0 --port $PORT`
-4. Aggiungi variabile ambiente:
-   - `OPENAI_API_KEY`: La tua API key OpenAI
+4. Add environment variables:
+   - `OPENAI_API_KEY`: Your OpenAI API key
    - `FRONTEND_URL`: `https://albertocabasvidani.github.io/DSPyUI`
 
-### Frontend su GitHub Pages
+### Frontend on GitHub Pages
 
-1. Modifica `docs/app.js`:
-   - Aggiorna `API_URL` con il tuo URL Render
-2. Commit e push:
+1. Edit `docs/app.js`:
+   - Update `API_URL` with your Render URL
+2. Commit and push:
    ```bash
    git add .
    git commit -m "Setup deployment"
    git push origin main
    ```
-3. Vai su GitHub Settings → Pages
+3. Go to GitHub Settings → Pages
 4. Source: Deploy from branch
 5. Branch: `main` → `/docs`
-6. Salva e attendi il deploy (~2 minuti)
+6. Save and wait for deployment (~2 minutes)
 
-## 📝 Utilizzo
+## 📝 Usage
 
-1. **Inserisci il Prompt Originale**: Il prompt che vuoi ottimizzare
-2. **Descrivi lo Scopo**: Cosa deve fare questo prompt
-3. **Aggiungi Esempi** (opzionale): Input/output attesi
-4. **Clicca Ottimizza**: Ricevi il prompt migliorato con spiegazioni
+1. **Enter Original Prompt**: The prompt you want to optimize
+2. **Describe Purpose**: What this prompt should do
+3. **Add Examples** (optional): Expected input/output
+4. **Click Optimize**: Receive improved prompt with explanations
 
-## 🔍 Struttura Progetto
+## 🔍 Project Structure
 
 ```
 DSPyUI/
-├── backend/                 # Backend FastAPI
-│   ├── app.py              # Server principale
-│   ├── prompt_optimizer.py # Logica DSPy
-│   ├── models.py           # Modelli Pydantic
-│   ├── requirements.txt    # Dipendenze Python
-│   └── render.yaml         # Config Render
+├── backend/                 # FastAPI Backend
+│   ├── app.py              # Main server
+│   ├── prompt_optimizer.py # DSPy logic
+│   ├── models.py           # Pydantic models
+│   ├── requirements.txt    # Python dependencies
+│   └── render.yaml         # Render config
 ├── docs/                   # Frontend (GitHub Pages)
-│   ├── index.html         # Pagina principale
-│   ├── app.js             # Logica JavaScript
-│   └── styles.css         # Stili CSS
+│   ├── index.html         # Main page
+│   ├── app.js             # JavaScript logic
+│   └── styles.css         # CSS styles
 ├── .gitignore
-├── .env.example           # Template variabili
+├── .env.example           # Environment variables template
 ├── LICENSE
 └── README.md
 ```
 
-## ⚠️ Limitazioni Piano Gratuito
+## ⚠️ Free Tier Limitations
 
-- **Render**: Il backend "dorme" dopo 15 minuti di inattività
-  - Prima richiesta dopo sleep: ~30 secondi di attesa
-  - 750 ore/mese di esecuzione (più che sufficiente per uso personale)
-- **GitHub Pages**: Nessun limite per siti statici
+- **Render**: Backend "sleeps" after 15 minutes of inactivity
+  - First request after sleep: ~30 seconds wait time
+  - 750 hours/month execution (more than enough for personal use)
+- **GitHub Pages**: No limits for static sites
 
-## 🤝 Contribuire
+## 🤝 Contributing
 
-1. Fork il progetto
-2. Crea feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit modifiche (`git commit -m 'Add AmazingFeature'`)
-4. Push al branch (`git push origin feature/AmazingFeature`)
-5. Apri Pull Request
+1. Fork the project
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
 
-## 📄 Licenza
+## 📄 License
 
-Distribuito sotto licenza MIT. Vedi `LICENSE` per maggiori informazioni.
+Distributed under MIT License. See `LICENSE` for more information.
 
-## 🙏 Riconoscimenti
+## 🙏 Acknowledgments
 
 - [DSPy](https://github.com/stanfordnlp/dspy) - Stanford NLP
 - [FastAPI](https://fastapi.tiangolo.com/)
 - [OpenAI](https://openai.com/)
 
-## 📧 Contatti
+## 📧 Contact
 
 - GitHub: [@albertocabasvidani](https://github.com/albertocabasvidani)
 
 ## 🐛 Troubleshooting
 
-### Backend non risponde
-- Attendi ~30 secondi se è la prima richiesta
-- Verifica che l'URL Render sia corretto in `app.js`
-- Controlla i log su Render Dashboard
+### Backend not responding
+- Wait ~30 seconds if it's the first request
+- Verify that the Render URL is correct in `app.js`
+- Check logs on Render Dashboard
 
-### Errore CORS
-- Assicurati che `FRONTEND_URL` sia configurato su Render
-- Verifica che l'URL nel frontend corrisponda
+### CORS Error
+- Make sure `FRONTEND_URL` is configured on Render
+- Verify that the URL in frontend matches
 
-### Errore API Key
-- Verifica che `OPENAI_API_KEY` sia configurata su Render
-- Controlla che la key sia valida e abbia crediti
+### API Key Error
+- Verify that `OPENAI_API_KEY` is configured on Render
+- Check that the key is valid and has credits
 
-## 🚀 Prossime Features
+## 🚀 Upcoming Features
 
-- [x] Few-shot learning con esempi (✓ Implementato)
-- [x] Validazione con DSPy Assertions (✓ Implementato)
-- [x] Metriche basate su LM (✓ Implementato)
-- [ ] Supporto per multiple lingue
-- [ ] Export/Import prompt ottimizzati
-- [ ] Template predefiniti per casi comuni
-- [ ] Integrazione con altri modelli LLM (Anthropic, Gemini, etc.)
+- [x] Few-shot learning with examples (✓ Implemented)
+- [x] Validation with DSPy Assertions (✓ Implemented)
+- [x] LM-based metrics (✓ Implemented)
+- [ ] Multi-language support
+- [ ] Export/Import optimized prompts
+- [ ] Predefined templates for common cases
+- [ ] Integration with other LLM models (Anthropic, Gemini, etc.)
 - [ ] Dark mode
