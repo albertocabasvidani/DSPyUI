@@ -70,11 +70,15 @@ python -m http.server 8080
    - Handles CORS for GitHub Pages origin
    - Endpoints: `/` (health), `/optimize` (main), `/analyze` (metrics only)
 
-2. **`prompt_optimizer.py`**: Core DSPy integration
+2. **`prompt_optimizer.py`**: Core DSPy integration with advanced features
    - Initializes DSPy with OpenAI LM configuration
-   - Uses `ChainOfThought` signature: `"purpose, original_prompt -> optimized_prompt, improvements"`
+   - Custom `PromptOptimizationSignature` with typed input/output fields
+   - **Dual optimization modes**:
+     - Without examples: Uses `ChainOfThought` with custom signature
+     - With examples: Uses `BootstrapFewShot` for few-shot learning (max 3-5 demos)
+   - **Validation**: `dspy.Assert` and `dspy.Suggest` for output quality checks
+   - **Quality metrics**: LM-based analysis with heuristic fallback
    - Falls back to template-based optimization if DSPy fails
-   - Implements heuristic quality metrics (clarity, specificity, structure, completeness)
 
 3. **`models.py`**: Pydantic models for request/response validation
 
@@ -122,13 +126,31 @@ Deploy configuration is in `backend/render.yaml`. Render will automatically:
 
 ## DSPy Integration Details
 
-The `PromptOptimizer` class uses DSPy's declarative prompt optimization:
+The `PromptOptimizer` class uses DSPy's advanced optimization features:
 
-- **Signature**: Defines input/output schema for LM calls
-- **ChainOfThought**: Module that adds reasoning steps automatically
-- **Fallback**: If DSPy optimization fails (API errors, invalid responses), falls back to template-based optimization with predefined structure
+### Core Components
 
-The optimizer analyzes prompts on multiple dimensions (clarity, specificity, structure, completeness) using simple heuristics, not ML models.
+- **Custom Signature**: `PromptOptimizationSignature` with typed fields:
+  - Input: `purpose`, `original_prompt`, `examples_context` (optional)
+  - Output: `optimized_prompt`, `improvements`
+
+- **Dual Optimization Strategy**:
+  - **Without examples** (`_optimize_without_examples`): Base `ChainOfThought` module
+  - **With examples** (`_optimize_with_examples`): `BootstrapFewShot` optimizer
+    - Converts user examples to DSPy `Example` format
+    - Compiles optimizer with validation metrics
+    - Limits to 3-5 demonstrations for efficiency
+
+- **Quality Validation**:
+  - `dspy.Assert`: Hard constraints (e.g., non-empty output)
+  - `dspy.Suggest`: Soft suggestions (e.g., prompt should differ from original)
+  - Custom scoring metric for optimization quality
+
+- **Metrics Analysis**:
+  - Primary: LM-based assessment (clarity, specificity, structure, completeness)
+  - Fallback: Heuristic-based scoring when LM unavailable
+
+- **Error Handling**: Multi-layer fallback (few-shot → base → template) ensures robustness
 
 ## Frontend-Backend Communication
 

@@ -9,9 +9,12 @@ Un'interfaccia web per ottimizzare i prompt usando la libreria DSPy e OpenAI. So
 
 ## ✨ Funzionalità
 
-- **Ottimizzazione Automatica**: Usa DSPy per migliorare i tuoi prompt
+- **Ottimizzazione Automatica**: Usa DSPy con funzionalità avanzate per migliorare i tuoi prompt
+  - **Base Mode**: ChainOfThought con signature personalizzata
+  - **Few-Shot Mode**: BootstrapFewShot quando fornisci esempi (opzionale)
+- **Validazione Intelligente**: Assert e Suggest DSPy per garantire qualità output
+- **Metriche LM-Based**: Valutazione AI di chiarezza, specificità, struttura e completezza
 - **Spiegazioni Dettagliate**: Comprendi perché sono state apportate modifiche
-- **Metriche di Qualità**: Valutazione della chiarezza, specificità, struttura e completezza
 - **Confronto Visivo**: Visualizza side-by-side originale vs ottimizzato
 - **Storia Locale**: Salvataggio automatico in localStorage
 - **100% Gratuito**: Nessun costo di hosting
@@ -170,8 +173,11 @@ Distribuito sotto licenza MIT. Vedi `LICENSE` per maggiori informazioni.
 
 ## 🚀 Prossime Features
 
+- [x] Few-shot learning con esempi (✓ Implementato)
+- [x] Validazione con DSPy Assertions (✓ Implementato)
+- [x] Metriche basate su LM (✓ Implementato)
 - [ ] Supporto per multiple lingue
 - [ ] Export/Import prompt ottimizzati
 - [ ] Template predefiniti per casi comuni
-- [ ] Integrazione con altri modelli LLM
+- [ ] Integrazione con altri modelli LLM (Anthropic, Gemini, etc.)
 - [ ] Dark mode
