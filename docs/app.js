@@ -29,7 +29,9 @@ const elements = {
     toastMessage: document.getElementById('toast-message'),
     addExampleBtn: document.getElementById('add-example-btn'),
     examplesContainer: document.getElementById('examples-container'),
-    clearHistory: document.getElementById('clear-history')
+    clearHistory: document.getElementById('clear-history'),
+    wakeupBanner: document.getElementById('wakeup-banner'),
+    wakeupTimer: document.getElementById('wakeup-timer')
 };
 
 // State
@@ -61,16 +63,66 @@ function setupEventListeners() {
     elements.purpose.addEventListener('input', saveToLocalStorage);
 }
 
-// Check backend health
+// Check backend health with auto wake-up
 async function checkBackendHealth() {
+    const maxAttempts = 18; // 18 attempts x 10s = 3 minutes max
+    const retryDelay = 10000; // 10 seconds between retries
+    let startTime = null;
+    let timerInterval = null;
+
     try {
-        const response = await fetch(`${CONFIG.API_URL}/health`);
-        if (!response.ok) {
-            showToast('⚠️ Backend may be starting up. First request may take ~30s', 'warning', 5000);
+        // First attempt - quick check
+        const response = await fetch(`${CONFIG.API_URL}/health`, {
+            signal: AbortSignal.timeout(5000)
+        });
+
+        if (response.ok) {
+            return true; // Backend is awake
         }
     } catch (error) {
-        showToast('⚠️ Backend unreachable. Check connection', 'error', 5000);
+        // Backend is sleeping, start wake-up process
+        console.log('Backend sleeping, starting wake-up process...');
     }
+
+    // Show wake-up banner
+    elements.wakeupBanner.classList.remove('hidden');
+    startTime = Date.now();
+
+    // Update timer display
+    timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        elements.wakeupTimer.textContent = `Elapsed: ${elapsed}s`;
+    }, 1000);
+
+    // Keep trying to wake up the backend
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+            const response = await fetch(`${CONFIG.API_URL}/health`, {
+                signal: AbortSignal.timeout(8000)
+            });
+
+            if (response.ok) {
+                // Backend is now awake!
+                clearInterval(timerInterval);
+                elements.wakeupBanner.classList.add('hidden');
+
+                const totalTime = Math.floor((Date.now() - startTime) / 1000);
+                showToast(`✅ Backend ready! (took ${totalTime}s)`, 'success', 3000);
+                return true;
+            }
+        } catch (error) {
+            // Still sleeping, wait and retry
+            if (attempt < maxAttempts) {
+                await new Promise(resolve => setTimeout(resolve, retryDelay));
+            }
+        }
+    }
+
+    // Failed to wake up after max attempts
+    clearInterval(timerInterval);
+    elements.wakeupBanner.classList.add('hidden');
+    showToast('⚠️ Backend unreachable after 3 minutes. Please try again later.', 'error', 5000);
+    return false;
 }
 
 // Optimize prompt
