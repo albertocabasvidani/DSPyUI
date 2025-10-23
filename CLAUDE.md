@@ -110,11 +110,22 @@ python -m http.server 8080
 ### Frontend Flow
 
 1. **`index.html`**: Single-page interface with form and results sections
+   - Wake-up banner for Render free tier sleep handling
+   - Toast notifications for user feedback
+
 2. **`app.js`**: Vanilla JS application logic
    - `CONFIG.API_URL`: Must be updated with actual Render backend URL before deployment
    - LocalStorage for session persistence (`STORAGE_KEYS.HISTORY`, `STORAGE_KEYS.LAST_REQUEST`)
-   - Health check on page load to warn about backend sleep state
+   - **Automatic backend wake-up**: `checkBackendHealth()` on page load
+     - Detects sleeping backend via health check timeout
+     - Shows fullscreen banner with spinner and elapsed timer
+     - Retries every 10s for up to 3 minutes (18 attempts)
+     - Success/failure toast notifications
+
 3. **`styles.css`**: CSS with CSS variables for theming
+   - Wake-up banner overlay with centered content
+   - Large spinner animation
+   - Responsive design for mobile/desktop
 
 ### Key Integration Points
 
@@ -223,9 +234,22 @@ fetch(`${API_URL}/optimize`, {
 
 ## Render Free Tier Behavior
 
-The backend **sleeps after 15 minutes** of inactivity. First request after sleep takes ~30 seconds. The frontend:
-- Shows warning toast on page load if backend health check fails
-- Displays user-friendly message during long waits
-- Automatically retries on network errors
+The backend **sleeps after 15 minutes** of inactivity. First request after sleep takes ~30-90 seconds.
 
-This is expected behavior for the free tier and should not be "fixed".
+### Automatic Wake-up Feature
+
+The frontend automatically handles backend sleep with zero user intervention:
+
+1. **Detection**: `checkBackendHealth()` runs on page load with 5s timeout
+2. **Wake-up process** (if backend sleeping):
+   - Shows fullscreen banner: "Waking up backend..."
+   - Displays live elapsed timer
+   - Retries health check every 10s
+   - Maximum 18 attempts (3 minutes total)
+3. **Completion**:
+   - Success: Hides banner, shows toast with total wake-up time
+   - Failure: Shows error toast after 3 minutes
+
+**User experience**: Users never need to manually access Render dashboard. The app automatically wakes the backend and provides visual feedback during the process.
+
+This is expected behavior for the free tier. The wake-up feature ensures seamless UX.
