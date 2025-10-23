@@ -15,14 +15,15 @@ class PromptOptimizer:
             raise ValueError("OPENAI_API_KEY not found in environment variables")
 
         model_name = os.getenv("OPENAI_MODEL", "gpt-4")
+        temperature = float(os.getenv("DSPY_TEMPERATURE", "0.7"))
 
-        # Configure DSPy with OpenAI
-        self.lm = dspy.OpenAI(
-            model=model_name,
+        # Configure DSPy with OpenAI (using new DSPy 2.5+ API)
+        self.lm = dspy.LM(
+            f'openai/{model_name}',
             api_key=api_key,
-            temperature=float(os.getenv("DSPY_TEMPERATURE", "0.7"))
+            temperature=temperature
         )
-        dspy.settings.configure(lm=self.lm)
+        dspy.configure(lm=self.lm)
 
         # Define signature for prompt optimization
         self.optimizer = dspy.ChainOfThought("purpose, original_prompt -> optimized_prompt, improvements")
